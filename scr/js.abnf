@@ -1,0 +1,39 @@
+InputElement ::= WiteSpace | LineTerminator | Comment | Token
+
+WiteSpace ::= " " | "  "
+LineTerminator ::=  "\n" | "\r"
+Comment ::= SingLineComment | MultiLineComment
+SingLineComment ::= "/" "/" <any>*
+MultiLineComment ::= "/" "*" ([^*] | "*" [^/])* "*" "/"
+Token ::= Literal | Keywords | Identifier | Punctuator
+Literal ::= NumericLiteral | BooleanLiteral | StringLiteral | NullLiteral
+Keywords ::= "if" | "else" | "for" | "function" ......
+Punctuator ::= "+" | "-" | "*" | "/" | "(" | ")" | ......
+
+
+Program ::= Statement+
+Statement ::= ExpressionStatement | IfStatement
+    | ForStatement | WhileStatement
+    | VariableDeclaration | FunctionDeclaration | ClassDeclaration
+    | BreakStatement | ContinuerStatement | ReturnStatement | ThrowStatement
+    | TryStatement | Block
+
+IfStatement ::= "if" "(" Expression ")" Statement
+
+Block ::= "{" Statement "}"
+
+TryStatement ::= "try" "{" Statement "}" "catch" "{" Expression "}" "finally" "{" Statement "}"
+
+ExpressionStatement ::= Expression ";"
+
+Expression ::= AdditiveExpression
+
+AdditiveExpression ::= MultiplicativeExpression
+    | AdditiveExpression ("+" | "-") MultiplicativeExpression
+
+MultiplicativeExpression ::= UnaryExpression
+    | MultiplicativeExpression ("*" | "/") UnaryExpression
+
+UnaryExpression ::= ("+" | "-" | "typeof") PrimaryExpression
+
+PrimaryExpression ::= "(" Expression ")" | Literal | Identifier

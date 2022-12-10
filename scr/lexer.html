@@ -1,0 +1,48 @@
+<script>
+    let xregexp = {
+        InputElement: /<WhiteSpace>|<LineTerminator>|<Comment>|<Token>/,
+        WhiteSpace: / /,
+        LineTerminator: /\n/,
+        Comment: /\/\*([^*]|\*[^\/])*\*\/|\/\/[^\n]*/,
+        Token: /<Literal>|<Keywords>|<Identifier>|<Punctuator>/,
+        Literal: /<NumericLiteral>|<BooleanLiteral>|<StringLiteral>|<NullLiteral>/,
+        NumericLiteral: /[1-9][0-9]*\.[0-9]*|\.[0-9]+/,
+        BooleanLiteral: /true|false/,
+        StringLiteral: /\"[^\"\n][\s\S]*\"|\'[^\'\n][\s\S]*\'/,
+        NullLiteral: /null/,
+        Identifier: /[a-zA-Z_$][a-zA-Z0-9_$]*/,
+        Keywords: /if|else|for|function/,
+        Punctuator: /\(|\)|\=|\+|\-|\+\+|\<|\>|\*|\/|\[|\]|\{|\}|\:/
+    }
+
+    function compileRegExp(xregexp, name) {
+        let regexp = xregexp[name]?.source.replace(/\<([^>]+)\>/g, function(str, $1) {
+            return compileRegExp(xregexp, $1);
+        });
+        return regexp;
+    }
+
+    let regexp = compileRegExp(xregexp, 'InputElement')
+
+    
+console.log(new RegExp(regexp, 'g'));
+
+    function scan(str) {
+        let regexp = / |\n|\/\*([^*]|\*[^\/])*\*\/|\/\/[^\n]*|[1-9][0-9]*|0/g;
+        while(regexp.lastIndex != str.length) {
+            let r = regexp.exec(str);
+            // console.log(JSON.stringify(r[0]));
+        }
+    }
+
+    scan(`
+        13
+        5
+        4
+        21243
+        0
+        /*hello world*/
+         /*ajiu9*/
+         // hello word
+    `)
+</script>

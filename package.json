@@ -1,0 +1,21 @@
+{
+  "name": "toyjs",
+  "version": "1.0.2",
+  "description": "this is a javascript lexer and parser learn code ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "javaScript",
+    "lexer",
+    "parser",
+    "grammar"
+  ],
+  "author": "ajiu9",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ajiu9/toyjs.git"
+  }
+}
